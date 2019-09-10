@@ -2,6 +2,7 @@ const express = require('express');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const routes = require('./routes');
+require('./db');
 
 const app = express();
 

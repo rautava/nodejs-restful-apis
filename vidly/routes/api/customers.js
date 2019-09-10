@@ -1,7 +1,7 @@
 const express = require('express');
-const debug = require('debug')('api:genres');
+const debug = require('debug')('api:customers');
 const {
-  Genre: { model, validate },
+  Customer: { model, validate },
 } = require('../../models');
 
 const router = express.Router();
@@ -27,8 +27,10 @@ router.post('/', async (req, res) => {
     return res.status(400).send(error.details[0].message);
   }
 
-  let data = new model({
+  const data = new model({
+    isGold: req.body.isGold,
     name: req.body.name,
+    phone: req.body.phone,
   });
 
   return await data.save({}, (err, doc) => {
@@ -52,7 +54,9 @@ router.put('/:id', async (req, res) => {
   return await model.findByIdAndUpdate(
     req.params.id,
     {
+      isGold: req.body.isGold,
       name: req.body.name,
+      phone: req.body.phone,
     },
     {
       new: true,
